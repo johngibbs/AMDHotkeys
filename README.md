@@ -2,11 +2,11 @@
 
 ## Overview
 
-The AMDHotkeysModule is a PowerShell module designed to manage AMD's Radeon software hotkeys via the Windows registry. It provides functions to enable, disable, clear, and restore hotkeys.
+The AMDHotkeysModule is a PowerShell module designed to manage AMD Radeon Software hotkeys via the Windows registry. It provides functions to enable, disable, clear, and restore hotkeys.
 
 ## Purpose
 
-AMD's Radeon software was registering the Alt+Z hotkey (even after disabling hotkeys in the app), which  prevented Visual Studio Code from using Alt+Z to toggle word wrap. This module provides a quick way to forcibly disable AMD's hotkeys.
+AMD Radeon Software was registering the Alt+Z hotkey (even after disabling hotkeys in the app), which prevented Visual Studio Code from using Alt+Z to toggle word wrap. This module provides a quick way to forcibly disable AMD Radeon Software hotkeys.
 
 ## Installation
 
@@ -27,20 +27,20 @@ Import-Module AMDHotkeysModule
 
 ### Functions
 
-- **Get-AMDHotkeysStatus**
-  - Retrieves the current status of AMD hotkeys.
+- **Test-AMDHotkeysEnabled**
+  - Checks if AMD Radeon Software hotkeys are currently enabled.
 
 - **Disable-AMDHotkeys**
-  - Disables all AMD hotkeys.
+  - Disables AMD Radeon Software hotkeys.
 
 - **Enable-AMDHotkeys**
-  - Enables all AMD hotkeys.
+  - Enables AMD Radeon Software hotkeys.
 
 - **Clear-AMDHotkeys**
-  - Clears all custom hotkey settings in the registry.
+  - Clears all AMD Radeon Software hotkey bindings.
 
 - **Restore-AMDHotkeys**
-  - Restores the default hotkey settings in the registry.
+  - Restores default AMD Radeon Software hotkey bindings.
 
 ## Example
 
@@ -56,7 +56,13 @@ To enable AMD hotkeys, you can run:
 Enable-AMDHotkeys
 ```
 
-To restore the default hotkeys, use:
+To remove all hotkey assignments, you can run:
+
+```powershell
+Restore-AMDHotkeys
+```
+
+To restore all hotkeys to their default assignments, you can run:
 
 ```powershell
 Restore-AMDHotkeys
