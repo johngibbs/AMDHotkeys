@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+Set-StrictMode -Version 5.1
 
 $hotkeys = @{
     "HKLM:\Software\AMD\DVR\ToggleRsHotkey"              = "Alt,R"
@@ -72,7 +72,7 @@ function Test-AMDHotkeysEnabled
         }
     }
 
-    return ($hotkeysDisabled -eq 0) ? $true : $false
+    return $(if ($hotkeysDisabled -eq 0) {$true} else {$false})
 }
 
 <#
