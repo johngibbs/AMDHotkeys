@@ -59,7 +59,7 @@ Enable-AMDHotkeys
 To remove all hotkey assignments, you can run:
 
 ```powershell
-Restore-AMDHotkeys
+Clear-AMDHotkeys
 ```
 
 To restore all hotkeys to their default assignments, you can run:
