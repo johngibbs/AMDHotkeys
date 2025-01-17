@@ -57,27 +57,22 @@ function Test-AMDHotkeysEnabled
     [CmdletBinding()]
     param()
 
-    try
+    $hotkeysDisabled = $null
+    
+    if (Test-AMDSoftwareInstalled)
     {
-        $hotkeysDisabled = Get-ItemPropertyValue -Path "HKCU:\Software\AMD\DVR" -Name "HotkeysDisabled"
-        Write-Verbose "HKCU:\Software\AMD\DVR\HotkeysDisabled registry value: $hotkeysDisabled"
-
-        switch ($hotkeysDisabled)
+        try
         {
-            0 { return $true }
-            1 { return $false }
-            default
-            {
-                Write-Verbose "Unexpected value for HotkeysDisabled being treated as if hotkeys are disabled."
-                return $false
-            }
+            $hotkeysDisabled = Get-ItemPropertyValue -Path "HKCU:\Software\AMD\DVR" -Name "HotkeysDisabled"
+            Write-Verbose "HKCU:\Software\AMD\DVR\HotkeysDisabled registry value: $hotkeysDisabled"
+        }
+        catch
+        {
+            Write-Verbose $_.Exception.Message
         }
     }
-    catch
-    {
-        Write-Verbose $_.Exception.Message
-        return $false
-    }
+
+    return ($hotkeysDisabled -eq 0) ? $true : $false
 }
 
 <#
