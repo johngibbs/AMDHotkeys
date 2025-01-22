@@ -12,7 +12,7 @@
     RequiredModules = @()
     RequiredAssemblies = @()
 
-    FunctionsToExport =@(
+    FunctionsToExport = @(
         'Test-AMDHotkeysEnabled',
         'Disable-AMDHotkeys',
         'Enable-AMDHotkeys',
