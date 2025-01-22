@@ -5,10 +5,9 @@
 
     RootModule = 'AMDHotkeysModule.psm1'
     GUID = 'd3b1c3f4-5e6a-4b8b-9c3e-1f2e3d4c5b6a'
-    ModuleVersion = '1.0.0'
+    ModuleVersion = '0.0.1'
     PowerShellVersion = '5.1'
     CompatiblePSEditions = @('Desktop')
-    CompatiblePlatforms = @('Windows')
 
     RequiredModules = @()
     RequiredAssemblies = @()
