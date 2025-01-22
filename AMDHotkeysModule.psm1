@@ -182,8 +182,8 @@ function Restart-AMDSettingsService
     param()
 
     # AMDRSServ is the AMD Radeon Settings Service. It is not an actual Windows service and so
-    # cannot be restarted with Restart-Service. However, it will automatically restart if we kill
-    # the process.
+    #  cannot be restarted with Restart-Service. However, it will automatically restart if we kill
+    #  the process.
     Get-Process -Name "AMDRSServ" -ErrorAction SilentlyContinue | Stop-Process -Force
 }
 
