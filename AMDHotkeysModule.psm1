@@ -1,25 +1,26 @@
 Set-StrictMode -Version 5.1
 
-Set-Variable -Option Constant -Name HotkeysDisabledPath -Value "HKCU:\Software\AMD\DVR\HotkeysDisabled"
-
+Set-Variable -Option Constant -Name AMDLocalMachineRootPath -Value "HKLM:\Software\AMD\DVR"
+Set-Variable -Option Constant -Name AMDCurrentUserRootPath -Value "HKCU:\Software\AMD\DVR"
+Set-Variable -Option Constant -Name HotkeysDisabledPath -Value "$AMDCurrentUserRootPath\HotkeysDisabled"
 Set-Variable -Option Constant -Name Hotkeys -Value ([Ordered]@{
-    "HKLM:\Software\AMD\DVR\ToggleRsHotkey"              = "Alt,R"
-    "HKLM:\Software\AMD\DVR\ToggleRsPerfUiHotkey"        = "Ctrl+Shift,O"
-    "HKLM:\Software\AMD\DVR\ToggleRsPerfRecordingHotkey" = "Ctrl+Shift,L"
-    "HKLM:\Software\AMD\DVR\Rotation00Hotkey"            = "Ctrl+Alt,VK_UP"
-    "HKLM:\Software\AMD\DVR\Rotation90Hotkey"            = "Ctrl+Alt,VK_LEFT"
-    "HKLM:\Software\AMD\DVR\Rotation180Hotkey"           = "Ctrl+Alt,VK_DOWN"
-    "HKLM:\Software\AMD\DVR\Rotation270Hotkey"           = "Ctrl+Alt,VK_RIGHT"
-    "HKLM:\Software\AMD\DVR\ToggleDvrToolbarHotkey"      = "Alt,Z"
-    "HKLM:\Software\AMD\DVR\ToggleDvrRecordingHotkey"    = "Ctrl+Shift,E"
-    "HKLM:\Software\AMD\DVR\ToggleStreamingHotkey"       = "Ctrl+Shift,G"
-    "HKLM:\Software\AMD\DVR\ToggleCameraHotkey"          = "Ctrl+Shift,C"
-    "HKLM:\Software\AMD\DVR\ToggleMicrophoneHotkey"      = "Ctrl+Shift,M"
-    "HKLM:\Software\AMD\DVR\TakeScreenshotHotkey"        = "Ctrl+Shift,I"
-    "HKLM:\Software\AMD\DVR\SaveInstantReplayHotkey"     = "Ctrl+Shift,S"
-    "HKLM:\Software\AMD\DVR\SaveInstantGifHotkey"        = "Ctrl+Shift,J"
-    "HKLM:\Software\AMD\DVR\SaveInGameReplayHotkey"      = "Ctrl+Shift,U"
-    "HKLM:\Software\AMD\DVR\ToggleUpscaling"             = "Alt,U"
+    "$AMDLocalMachineRootPath\ToggleRsHotkey"              = "Alt,R"
+    "$AMDLocalMachineRootPath\ToggleRsPerfUiHotkey"        = "Ctrl+Shift,O"
+    "$AMDLocalMachineRootPath\ToggleRsPerfRecordingHotkey" = "Ctrl+Shift,L"
+    "$AMDLocalMachineRootPath\Rotation00Hotkey"            = "Ctrl+Alt,VK_UP"
+    "$AMDLocalMachineRootPath\Rotation90Hotkey"            = "Ctrl+Alt,VK_LEFT"
+    "$AMDLocalMachineRootPath\Rotation180Hotkey"           = "Ctrl+Alt,VK_DOWN"
+    "$AMDLocalMachineRootPath\Rotation270Hotkey"           = "Ctrl+Alt,VK_RIGHT"
+    "$AMDLocalMachineRootPath\ToggleDvrToolbarHotkey"      = "Alt,Z"
+    "$AMDLocalMachineRootPath\ToggleDvrRecordingHotkey"    = "Ctrl+Shift,E"
+    "$AMDLocalMachineRootPath\ToggleStreamingHotkey"       = "Ctrl+Shift,G"
+    "$AMDLocalMachineRootPath\ToggleCameraHotkey"          = "Ctrl+Shift,C"
+    "$AMDLocalMachineRootPath\ToggleMicrophoneHotkey"      = "Ctrl+Shift,M"
+    "$AMDLocalMachineRootPath\TakeScreenshotHotkey"        = "Ctrl+Shift,I"
+    "$AMDLocalMachineRootPath\SaveInstantReplayHotkey"     = "Ctrl+Shift,S"
+    "$AMDLocalMachineRootPath\SaveInstantGifHotkey"        = "Ctrl+Shift,J"
+    "$AMDLocalMachineRootPath\SaveInGameReplayHotkey"      = "Ctrl+Shift,U"
+    "$AMDLocalMachineRootPath\ToggleUpscaling"             = "Alt,U"
 })
 
 <#
@@ -36,9 +37,9 @@ function Test-AMDSoftwareInstalled
     # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
-    if (-not ((Test-Path "HKLM:\Software\AMD\DVR") -and (Test-Path "HKCU:\Software\AMD\DVR")))
+    if (-not ((Test-Path $AMDLocalMachineRootPath) -and (Test-Path $AMDCurrentUserRootPath)))
     {
-        Write-Verbose "Registry path HKLM:\Software\AMD\DVR or HKCU:\Software\AMD\DVR does not exist."
+        Write-Verbose "Registry path $AMDLocalMachineRootPath or $AMDCurrentUserRootPath does not exist."
         Write-Warning "AMD Radeon Software is not installed."
         return $false
     }
@@ -50,7 +51,7 @@ function Test-AMDSoftwareInstalled
 .SYNOPSIS
     Checks if AMD Radeon Software hotkeys are currently enabled.
 .DESCRIPTION
-    Tests the HKCU:\Software\AMD\DVR\HotkeysDisabled registry value to determine if AMD Radeon Software hotkeys are enabled.
+    Tests the Windows registry to determine if AMD Radeon Software hotkeys are enabled.
 .EXAMPLE
     Test-AMDHotkeysEnabled
     Returns $true if AMD Radeon Software hotkeys are enabled, $false otherwise.
