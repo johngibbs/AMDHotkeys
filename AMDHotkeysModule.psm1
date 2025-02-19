@@ -31,8 +31,8 @@ $hotkeys = @{
 #>
 function Test-AMDSoftwareInstalled
 {
-    [CmdletBinding()]
-    param()
+    # Use CmdletBinding to allow for -Verbose switch
+    [CmdletBinding()] param()
 
     if (-not ((Test-Path "HKLM:\Software\AMD\DVR") -and (Test-Path "HKCU:\Software\AMD\DVR")))
     {
@@ -54,8 +54,8 @@ function Test-AMDSoftwareInstalled
 #>
 function Test-AMDHotkeysEnabled
 {
-    [CmdletBinding()]
-    param()
+    # Use CmdletBinding to allow for -Verbose switch
+    [CmdletBinding()] param()
 
     $hotkeysDisabled = $null
     
@@ -86,8 +86,8 @@ function Test-AMDHotkeysEnabled
 #>
 function Disable-AMDHotkeys
 {
-    [CmdletBinding()]
-    param()
+    # Use CmdletBinding to allow for -Verbose switch
+    [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
     {
@@ -107,8 +107,8 @@ function Disable-AMDHotkeys
 #>
 function Enable-AMDHotkeys
 {
-    [CmdletBinding()]
-    param()
+    # Use CmdletBinding to allow for -Verbose switch
+    [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
     {
@@ -128,8 +128,8 @@ function Enable-AMDHotkeys
 #>
 function Clear-AMDHotkeys
 {
-    [CmdletBinding()]
-    param()
+    # Use CmdletBinding to allow for -Verbose switch
+    [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
     {
@@ -152,8 +152,8 @@ function Clear-AMDHotkeys
 #>
 function Restore-AMDHotkeys
 {
-    [CmdletBinding()]
-    param()
+    # Use CmdletBinding to allow for -Verbose switch
+    [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
     {
@@ -178,8 +178,8 @@ function Restore-AMDHotkeys
 #>
 function Restart-AMDSettingsService
 {
-    [CmdletBinding()]
-    param()
+    # Use CmdletBinding to allow for -Verbose switch
+    [CmdletBinding()] param()
 
     # AMDRSServ is the AMD Radeon Settings Service. It is not an actual Windows service and so
     #  cannot be restarted with Restart-Service. However, it will automatically restart if we kill
