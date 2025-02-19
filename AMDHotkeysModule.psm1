@@ -132,12 +132,12 @@ function Enable-AMDHotkeys
 
 <#
 .SYNOPSIS
-    Gets all AMD Radeon Software hotkeys bindings.
+    Gets all AMD Radeon Software hotkey bindings.
 .DESCRIPTION
-    Gets all hotkeys assignments.
+    Gets all hotkey assignments.
 .EXAMPLE
     Get-AMDHotkeys
-    Gets all hotkeys assignments.
+    Gets all hotkey assignments.
 #>
 function Get-AMDHotkeys
 {
