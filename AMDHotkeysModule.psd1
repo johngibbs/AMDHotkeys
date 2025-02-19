@@ -16,6 +16,7 @@
         'Test-AMDHotkeysEnabled',
         'Disable-AMDHotkeys',
         'Enable-AMDHotkeys',
+        'Get-AMDHotkeys',
         'Clear-AMDHotkeys',
         'Restore-AMDHotkeys'
     )

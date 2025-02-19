@@ -2,7 +2,7 @@ Set-StrictMode -Version 5.1
 
 Set-Variable -Option Constant -Name HotkeysDisabledPath -Value "HKCU:\Software\AMD\DVR\HotkeysDisabled"
 
-Set-Variable -Option Constant -Name Hotkeys -Value @{
+Set-Variable -Option Constant -Name Hotkeys -Value ([Ordered]@{
     "HKLM:\Software\AMD\DVR\ToggleRsHotkey"              = "Alt,R"
     "HKLM:\Software\AMD\DVR\ToggleRsPerfUiHotkey"        = "Ctrl+Shift,O"
     "HKLM:\Software\AMD\DVR\ToggleRsPerfRecordingHotkey" = "Ctrl+Shift,L"
@@ -20,7 +20,7 @@ Set-Variable -Option Constant -Name Hotkeys -Value @{
     "HKLM:\Software\AMD\DVR\SaveInstantGifHotkey"        = "Ctrl+Shift,J"
     "HKLM:\Software\AMD\DVR\SaveInGameReplayHotkey"      = "Ctrl+Shift,U"
     "HKLM:\Software\AMD\DVR\ToggleUpscaling"             = "Alt,U"
-}
+})
 
 <#
 .SYNOPSIS
@@ -33,7 +33,7 @@ Set-Variable -Option Constant -Name Hotkeys -Value @{
 #>
 function Test-AMDSoftwareInstalled
 {
-    # Use CmdletBinding to allow for -Verbose switch
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
     if (-not ((Test-Path "HKLM:\Software\AMD\DVR") -and (Test-Path "HKCU:\Software\AMD\DVR")))
@@ -42,6 +42,7 @@ function Test-AMDSoftwareInstalled
         Write-Warning "AMD Radeon Software is not installed."
         return $false
     }
+    Write-Verbose "AMD Radeon Software is installed."
     return $true
 }
 
@@ -56,7 +57,7 @@ function Test-AMDSoftwareInstalled
 #>
 function Test-AMDHotkeysEnabled
 {
-    # Use CmdletBinding to allow for -Verbose switch
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
     $hotkeysDisabled = $null
@@ -84,14 +85,14 @@ function Test-AMDHotkeysEnabled
 .SYNOPSIS
     Disables AMD Radeon Software hotkeys.
 .DESCRIPTION
-    Disables hotkey functionality in AMD Radeon Software by setting the HotkeysDisabled registry value to 1.
+    Disables hotkey functionality.
 .EXAMPLE
     Disable-AMDHotkeys
-    Disables AMD Radeon Software hotkeys.
+    Disables hotkey functionality.
 #>
 function Disable-AMDHotkeys
 {
-    # Use CmdletBinding to allow for -Verbose switch
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
@@ -108,14 +109,14 @@ function Disable-AMDHotkeys
 .SYNOPSIS
     Enables AMD Radeon Software hotkeys.
 .DESCRIPTION
-    Enables hotkey functionality in AMD Radeon Software by setting the HotkeysDisabled registry value to 0.
+    Enables hotkey functionality.
 .EXAMPLE
     Enable-AMDHotkeys
-    Enables AMD Radeon Software hotkeys.
+    Enables hotkey functionality.
 #>
 function Enable-AMDHotkeys
 {
-    # Use CmdletBinding to allow for -Verbose switch
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
@@ -130,16 +131,47 @@ function Enable-AMDHotkeys
 
 <#
 .SYNOPSIS
+    Gets all AMD Radeon Software hotkeys bindings.
+.DESCRIPTION
+    Gets all hotkeys assignments.
+.EXAMPLE
+    Get-AMDHotkeys
+    Gets all hotkeys assignments.
+#>
+function Get-AMDHotkeys
+{
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
+    [CmdletBinding()] param()
+
+    if (Test-AMDSoftwareInstalled)
+    {
+        $hotkeyList = foreach ($path in $Hotkeys.Keys)
+        {
+            $value = Get-ItemPropertyValue `
+                -Path (Split-Path $path -Parent) `
+                -Name (Split-Path $path -Leaf)
+
+            [PSCustomObject][Ordered]@{
+                RegistryPath = $path
+                Hotkey       = $value
+            }
+        }
+        return $hotkeyList
+    }
+}
+
+<#
+.SYNOPSIS
     Clears all AMD Radeon Software hotkey bindings.
 .DESCRIPTION
-    Removes all hotkey assignments in AMD Radeon Software by setting empty values for all hotkey registry entries.
+    Clears all hotkey assignments.
 .EXAMPLE
     Clear-AMDHotkeys
-    Removes all hotkey assignments.
+    Clears all hotkey assignments.
 #>
 function Clear-AMDHotkeys
 {
-    # Use CmdletBinding to allow for -Verbose switch
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
@@ -159,14 +191,14 @@ function Clear-AMDHotkeys
 .SYNOPSIS
     Restores default AMD Radeon Software hotkey bindings.
 .DESCRIPTION
-    Resets all hotkey assignments in AMD Radeon Software to their default values.
+    Restores all hotkey assignments to their default value.
 .EXAMPLE
     Restore-AMDHotkeys
-    Restores all hotkeys to their default assignments.
+    Restores all hotkey assignments to their default value.
 #>
 function Restore-AMDHotkeys
 {
-    # Use CmdletBinding to allow for -Verbose switch
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
     if (Test-AMDSoftwareInstalled)
@@ -195,7 +227,7 @@ function Restore-AMDHotkeys
 #>
 function Restart-AMDSettingsService
 {
-    # Use CmdletBinding to allow for -Verbose switch
+    # Use CmdletBinding to allow for common parameters (e.g. -Verbose)
     [CmdletBinding()] param()
 
     # AMDRSServ is the AMD Radeon Settings Service. It is not an actual Windows service and so
@@ -209,5 +241,6 @@ Export-ModuleMember `
         Test-AMDHotkeysEnabled, `
         Disable-AMDHotkeys, `
         Enable-AMDHotkeys, `
+        Get-AMDHotkeys, `
         Clear-AMDHotkeys, `
         Restore-AMDHotkeys
