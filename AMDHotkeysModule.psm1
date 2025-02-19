@@ -2,7 +2,7 @@ Set-StrictMode -Version 5.1
 
 Set-Variable -Option Constant -Name HotkeysDisabledPath -Value "HKCU:\Software\AMD\DVR\HotkeysDisabled"
 
-Set-Variable -Option Constant -Name Hotkeys -Value = @{
+Set-Variable -Option Constant -Name Hotkeys -Value @{
     "HKLM:\Software\AMD\DVR\ToggleRsHotkey"              = "Alt,R"
     "HKLM:\Software\AMD\DVR\ToggleRsPerfUiHotkey"        = "Ctrl+Shift,O"
     "HKLM:\Software\AMD\DVR\ToggleRsPerfRecordingHotkey" = "Ctrl+Shift,L"
