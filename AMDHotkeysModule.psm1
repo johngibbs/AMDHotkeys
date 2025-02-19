@@ -1,6 +1,8 @@
 Set-StrictMode -Version 5.1
 
-$hotkeys = @{
+Set-Variable -Option Constant -Name HotkeysDisabledPath -Value "HKCU:\Software\AMD\DVR\HotkeysDisabled"
+
+Set-Variable -Option Constant -Name Hotkeys -Value = @{
     "HKLM:\Software\AMD\DVR\ToggleRsHotkey"              = "Alt,R"
     "HKLM:\Software\AMD\DVR\ToggleRsPerfUiHotkey"        = "Ctrl+Shift,O"
     "HKLM:\Software\AMD\DVR\ToggleRsPerfRecordingHotkey" = "Ctrl+Shift,L"
@@ -63,8 +65,11 @@ function Test-AMDHotkeysEnabled
     {
         try
         {
-            $hotkeysDisabled = Get-ItemPropertyValue -Path "HKCU:\Software\AMD\DVR" -Name "HotkeysDisabled"
-            Write-Verbose "HKCU:\Software\AMD\DVR\HotkeysDisabled registry value: $hotkeysDisabled"
+            $hotkeysDisabled = Get-ItemPropertyValue `
+                -Path (Split-Path $HotkeysDisabledPath -Parent) `
+                -Name (Split-Path $HotkeysDisabledPath -Leaf)
+
+            Write-Verbose "$HotkeysDisabledPath registry value: $hotkeysDisabled"
         }
         catch
         {
@@ -91,7 +96,10 @@ function Disable-AMDHotkeys
 
     if (Test-AMDSoftwareInstalled)
     {
-        Set-ItemProperty -Path "HKCU:\Software\AMD\DVR" -Name "HotkeysDisabled" -Value 1
+        Set-ItemProperty `
+            -Path (Split-Path $HotkeysDisabledPath -Parent) `
+            -Name (Split-Path $HotkeysDisabledPath -Leaf) `
+            -Value 1
         Restart-AMDSettingsService
     }
 }
@@ -112,7 +120,10 @@ function Enable-AMDHotkeys
 
     if (Test-AMDSoftwareInstalled)
     {
-        Set-ItemProperty -Path "HKCU:\Software\AMD\DVR" -Name "HotkeysDisabled" -Value 0
+        Set-ItemProperty `
+            -Path (Split-Path $HotkeysDisabledPath -Parent) `
+            -Name (Split-Path $HotkeysDisabledPath -Leaf) `
+            -Value 0
         Restart-AMDSettingsService
     }
 }
@@ -133,9 +144,12 @@ function Clear-AMDHotkeys
 
     if (Test-AMDSoftwareInstalled)
     {
-        foreach ($path in $hotkeys.Keys)
+        foreach ($path in $Hotkeys.Keys)
         {
-            Set-ItemProperty -Path $path -Name (Split-Path $path -Leaf) -Value ""
+            Set-ItemProperty `
+                -Path (Split-Path $path -Parent) `
+                -Name (Split-Path $path -Leaf) `
+                -Value ""
         }
         Restart-AMDSettingsService
     }
@@ -157,9 +171,12 @@ function Restore-AMDHotkeys
 
     if (Test-AMDSoftwareInstalled)
     {
-        foreach ($path in $hotkeys.Keys)
+        foreach ($path in $Hotkeys.Keys)
         {
-            Set-ItemProperty -Path $path -Name (Split-Path $path -Leaf) -Value $hotkeys[$path]
+            Set-ItemProperty `
+                -Path (Split-Path $path -Parent) `
+                -Name (Split-Path $path -Leaf) `
+                -Value $Hotkeys[$path]
         }
         Restart-AMDSettingsService
     }
