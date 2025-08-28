@@ -3,9 +3,9 @@
     Author = 'John Gibbs'
     Copyright = '(c) 2025 John Gibbs. All rights reserved.'
 
-    RootModule = 'AMDHotkeysModule.psm1'
+    RootModule = 'AMDHotkeys.psm1'
     GUID = 'd3b1c3f4-5e6a-4b8b-9c3e-1f2e3d4c5b6a'
-    ModuleVersion = '0.0.1'
+    ModuleVersion = '0.0.2'
     PowerShellVersion = '5.1'
     CompatiblePSEditions = @('Desktop')
 
@@ -26,16 +26,16 @@
     NestedModules = @()
 
     FileList = @(
-        'AMDHotkeysModule.psm1',
-        'AMDHotkeysModule.psd1'
+        'AMDHotkeys.psm1',
+        'AMDHotkeys.psd1'
     )
     PrivateData = @{
         PSData = @{
             Tags = @('AMD', 'Radeon', 'Hotkeys', 'Registry')
             LicenseUri = 'https://opensource.org/licenses/MIT'
-            ProjectUri = 'https://github.com/johngibbs/AMDHotkeysModule'
+            ProjectUri = 'https://github.com/johngibbs/AMDHotkeys'
             IconUri = 'https://example.com/icon.png'
-            ReleaseNotes = 'Initial release of the AMDHotkeysModule.'
+            ReleaseNotes = 'Renamed module to AMDHotkeys.'
         }
     }
 }

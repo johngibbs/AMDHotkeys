@@ -1,8 +1,8 @@
-# AMDHotkeysModule
+# AMDHotkeys
 
 ## Overview
 
-The AMDHotkeysModule is a PowerShell module designed to manage AMD Radeon Software hotkeys via the Windows registry. It provides functions to enable, disable, clear, and restore hotkeys.
+The AMDHotkeys module is a PowerShell module designed to manage AMD Radeon Software hotkeys via the Windows registry. It provides functions to enable, disable, clear, and restore hotkeys.
 
 ## Purpose
 
@@ -10,10 +10,10 @@ AMD Radeon Software was registering the Alt+Z hotkey (even after disabling hotke
 
 ## Installation
 
-To install the AMDHotkeysModule, follow these steps:
+To install the AMDHotkeys module, follow these steps:
 
 1. Download the module files.
-2. Place the `AMDHotkeysModule` folder in one of the following locations:
+2. Place the `AMDHotkeys` folder in one of the following locations:
    - `$HOME\Documents\WindowsPowerShell\Modules`
    - `$PSModulePath` (check the current paths using `$env:PSModulePath`)
 
@@ -22,7 +22,7 @@ To install the AMDHotkeysModule, follow these steps:
 To use the module, first import it into your PowerShell session:
 
 ```powershell
-Import-Module AMDHotkeysModule
+Import-Module AMDHotkeys
 ```
 
 ### Functions
