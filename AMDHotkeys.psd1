@@ -32,7 +32,7 @@
     PrivateData = @{
         PSData = @{
             Tags = @('AMD', 'Radeon', 'Hotkeys', 'Registry')
-            LicenseUri = 'https://github.com/johngibbs/AMDHotkeys/blob/main/LICENSE'
+            LicenseUri = 'https://raw.githubusercontent.com/johngibbs/AMDHotkeys/heads/main/LICENSE'
             ProjectUri = 'https://github.com/johngibbs/AMDHotkeys'
             IconUri = 'https://raw.githubusercontent.com/johngibbs/AMDHotkeys/main/icon.png'
             ReleaseNotes = 'Renamed module to AMDHotkeys.'
