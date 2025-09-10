@@ -1,11 +1,11 @@
 @{
-    Description = 'A PowerShell module for managing AMD Radeon Software hotkeys through the Windows registry.'
+    Description = 'A PowerShell module for managing AMD Radeon Software hotkeys via the Windows registry.'
     Author = 'John Gibbs'
     Copyright = '(c) 2025 John Gibbs. All rights reserved.'
 
     RootModule = 'AMDHotkeys.psm1'
     GUID = 'd3b1c3f4-5e6a-4b8b-9c3e-1f2e3d4c5b6a'
-    ModuleVersion = '0.0.2'
+    ModuleVersion = '0.0.3'
     PowerShellVersion = '5.1'
     CompatiblePSEditions = @('Desktop')
 

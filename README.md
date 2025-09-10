@@ -2,7 +2,7 @@
 
 ## Overview
 
-The AMDHotkeys module is a PowerShell module designed to manage AMD Radeon Software hotkeys via the Windows registry. It provides functions to enable, disable, clear, and restore hotkeys.
+AMDHotkeys is a PowerShell module for managing AMD Radeon Software hotkeys via the Windows registry. It provides functions to enable, disable, clear, and restore hotkeys.
 
 ## Purpose
 
@@ -67,10 +67,6 @@ To restore all hotkeys to their default assignments, you can run:
 ```powershell
 Restore-AMDHotkeys
 ```
-
-## Author
-
-This module was created by John Gibbs.
 
 ## License
 
