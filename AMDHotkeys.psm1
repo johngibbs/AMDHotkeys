@@ -1,4 +1,9 @@
-Set-StrictMode -Version 5.1
+Set-StrictMode -Version Latest
+
+# Guard: Only support Windows platforms (works in both Windows PowerShell and PowerShell 7+)
+$__isWindows = $false
+try { $__isWindows = [System.Environment]::OSVersion.Platform -eq [System.PlatformID]::Win32NT } catch { $__isWindows = $false }
+if (-not $__isWindows) { throw 'AMDHotkeys supports Windows only. Import on non-Windows is not supported.' }
 
 Set-Variable -Option Constant -Name AMDLocalMachineRootPath -Value "HKLM:\Software\AMD\DVR"
 Set-Variable -Option Constant -Name AMDCurrentUserRootPath -Value "HKCU:\Software\AMD\DVR"

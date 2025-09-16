@@ -7,7 +7,7 @@
     GUID = 'd3b1c3f4-5e6a-4b8b-9c3e-1f2e3d4c5b6a'
     ModuleVersion = '0.0.3'
     PowerShellVersion = '5.1'
-    CompatiblePSEditions = @('Desktop')
+    CompatiblePSEditions = @('Desktop','Core')
 
     RequiredModules = @()
     RequiredAssemblies = @()
@@ -31,11 +31,11 @@
     )
     PrivateData = @{
         PSData = @{
-            Tags = @('AMD', 'Radeon', 'Hotkeys', 'Registry')
+            Tags = @('AMD', 'Radeon', 'Hotkeys', 'Registry', 'Windows')
             LicenseUri = 'https://raw.githubusercontent.com/johngibbs/AMDHotkeys/main/LICENSE'
             ProjectUri = 'https://github.com/johngibbs/AMDHotkeys'
             IconUri = 'https://raw.githubusercontent.com/johngibbs/AMDHotkeys/main/icon.png'
-            ReleaseNotes = 'Renamed module to AMDHotkeys.'
+            ReleaseNotes = 'Initial release of AMDHotkeys PowerShell module.'
         }
     }
 }
