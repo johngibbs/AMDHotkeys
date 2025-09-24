@@ -10,7 +10,13 @@ AMD Radeon Software was registering the Alt+Z hotkey (even after disabling hotke
 
 ## Installation
 
-To install the AMDHotkeys module, follow these steps:
+To install the AMDHotkeys module from the PowerShell Gallery, run the following command in PowerShell:
+
+```powershell
+Install-Module -Name AMDHotkeys
+```
+
+Alternatively, to install the module manually, follow these steps:
 
 1. Download the module files.
 2. Place the `AMDHotkeys` folder in one of the following locations:
